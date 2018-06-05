@@ -1,8 +1,11 @@
+const dbPromise = idb.open('restaurant-db', 1, (upgradeDb) => {
+    upgradeDb.createObjectStore('restaurants');
+  });
+
 /**
  * Common database helper functions.
  */
 class DBHelper {
-
   /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
@@ -24,9 +27,9 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
-        // const restaurants = json.restaurants;
         const restaurants = json;
         // console.log(restaurants);
+        this.setIdbCache('idb', restaurants);
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -34,6 +37,27 @@ class DBHelper {
       }
     };
     xhr.send();
+    xhr.onerror = () => {
+      console.log('error xhr');
+      this.getIdbCache('idb')
+      callback(null, res);
+    };
+  }
+
+
+  static getIdbCache(key) {
+    return dbPromise.then(db => {
+      return db.transaction('restaurants')
+      .objectStore('restaurants').get(key);
+    });
+  }
+
+  static setIdbCache(key, val) {
+    return dbPromise.then(db => {
+      const tx = db.transaction('restaurants', 'readwrite');
+      tx.objectStore('restaurants').put(val, key);
+      return tx.complete;
+    });
   }
 
   /**
