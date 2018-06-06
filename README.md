@@ -1,35 +1,19 @@
-# Local Development API Server
-## Usage
-#### Get Restaurants
-```
-curl "http://localhost:1337/restaurants"
-```
-#### Get Restaurants by id
-````
-curl "http://localhost:1337/restaurants/{3}"
-````
+# Restaurant Reviews Project
 
-## Architecture
-Local server
-- Node.js
-- Sails.js
+This project is made for Udacity Google Mobile Specialist nanodegree program.
 
-## Contributors
+## Project Overview: Stage 2
 
-- [Brandy Lee Camacho - Technical Project Manager](mailto:brandy.camacho@udacity.com)
-- [David Harris - Web Services Lead](mailto:david.harris@udacity.com)
-- [Omar Albeik - Frontend engineer](mailto:omaralbeik@gmail.com)
+This is a **Restaurant Reviews** project. Users are able to view restaurants information and view them on Google Maps.
+A static webpage is converted to a mobile-ready web application. I took a static design that lacks accessibility and convert the design to be responsive on different sized displays and accessible for screen reader use. I also added a service worker to begin the process of creating a seamless offline experience for users.
+Restaurant data served from an api server. The client application works offline. JSON responses are cached using the IndexedDB API. Any data previously accessed while connected is reachable while offline.
 
-## Getting Started
+### Site Performance
+Progressive Web App: >90
+Performance: >70
+Accessibility: >90
 
-### Development local API Server
-_Location of server = /server_
-Server depends on [node.js LTS Version: v6.11.2 ](https://nodejs.org/en/download/), [npm](https://www.npmjs.com/get-npm), and [sails.js](http://sailsjs.com/)
-Please make sure you have these installed before proceeding forward.
-
-Great, you are ready to proceed forward; awesome!
-
-Let's start with running commands in your terminal, known as command line interface (CLI)
+### Instructions
 
 ###### Install project dependancies
 ```Install project dependancies
@@ -47,6 +31,10 @@ Let's start with running commands in your terminal, known as command line interf
 debug: Environment : development
 debug: Port        : 1337
 
+### Enter address in the address bar of your browser 
+```localhost:1337```
 
-If you find a bug in the source code or a mistake in the documentation, you can help us by
-submitting an issue to our [Waffle Dashboard](https://waffle.io/udacity/mwnd-issues). Even better you can submit a Pull Request with a fix :)
+## Architecture
+Local server
+- Node.js
+- Sails.js

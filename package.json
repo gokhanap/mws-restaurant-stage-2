@@ -2,7 +2,7 @@
   "name": "Restaurant-Reviews",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "Restaurant Reviews application",
   "keywords": [],
   "dependencies": {
     "include-all": "^1.0.0",

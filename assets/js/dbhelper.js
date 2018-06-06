@@ -27,10 +27,10 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
-        const restaurants = json;
-        // console.log(restaurants);
-        this.setIdbCache('idb', restaurants);
-        callback(null, restaurants);
+        self.restaurants = json;
+        console.log(self.restaurants);
+        this.setIdbCache('idb', self.restaurants);
+        callback(null, self.restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
         callback(error, null);
@@ -39,11 +39,10 @@ class DBHelper {
     xhr.send();
     xhr.onerror = () => {
       console.log('error xhr');
-      this.getIdbCache('idb')
+      this.getIdbCache('idb');
       callback(null, res);
     };
   }
-
 
   static getIdbCache(key) {
     return dbPromise.then(db => {
@@ -64,6 +63,9 @@ class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
+    //  TODO
+    //  this.getIdbCache('idb').then(function(res){console.log(res);})
+
     // fetch all restaurants with proper error handling.
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
@@ -179,7 +181,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`./img/${restaurant.photograph}.jpg`);
+    return (`./img/${restaurant.photograph}`);
   }
 
   /**

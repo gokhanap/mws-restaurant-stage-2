@@ -4,12 +4,21 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f9d100"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/styles.css">
-    <link async href="https://fonts.googleapis.com/css?family=Ubuntu:700|Ubuntu+Condensed" rel="stylesheet">
-    <script type="text/javascript" src="sw.js"></script>
-    <script type="text/javascript" src="js/idb.js"></script>
+    <link rel="icon" type="image/png" href="/img/review.png">
+    <!-- Begining scripts -->
+    <script defer type="text/javascript" src="sw.js"></script>
+    <script defer type="text/javascript" src="js/idb.js"></script>
+    <script defer type="text/javascript" src="js/dbhelper.js"></script>
+    <!-- Main javascript file -->
+    <script defer type="text/javascript" src="js/main.js"></script>
+    <!-- Google Maps -->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDx0zE_ZCZFSzmWsMI2lr1nNTI8iv3m8GU&language=en&libraries=places&callback=initMap"></script>
+    <!-- End scripts -->
     <title>Restaurant Reviews</title>
   </head>
   
@@ -36,37 +45,31 @@
             <label for="neighborhoods-select">Neighborhoods Selection</label>
             <select id="neighborhoods-select" name="neighborhoods" 
             size="1" onchange="updateRestaurants()"> 
-              <label for="all-nb-opt">All Neighborhoods</label>
-              <option value="all" id="all-nb-opt">All Neighborhoods</option>
-            </select>
-          </div>
-          
-          <div class="cuisines-container">
-            <label for="cuisines-select">Cuisines Selection</label>
-            <select id="cuisines-select" name="cuisines" 
-            size="1" onchange="updateRestaurants()">
-              <label for="all-cu-opt">All Neighborhoods</label>
-              <option value="all" id="all-cu-opt">All Cuisines</option>
-            </select>
-          </div>
-          
+            <label for="all-nb-opt">All Neighborhoods</label>
+            <option value="all" id="all-nb-opt">All Neighborhoods</option>
+          </select>
         </div>
-        <ul id="restaurants-list" aria-live="assertive"></ul>
-      </section>
-    </main>
-    
-    <footer id="footer">
-      Copyright (c) 2018 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
-    </footer>
-    
-    <!-- Begining scripts -->
-    <!-- Database helpers -->
-    <script defer type="text/javascript" src="js/dbhelper.js"></script>
-    <!-- Main javascript file -->
-    <script defer type="text/javascript" src="js/main.js"></script>
-    <!-- Google Maps -->
-    <script aysnc defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDx0zE_ZCZFSzmWsMI2lr1nNTI8iv3m8GU&language=en&libraries=places&callback=initMap"></script>
-    <!-- End scripts -->
-  </body>
-  
-  </html>
+        
+        <div class="cuisines-container">
+          <label for="cuisines-select">Cuisines Selection</label>
+          <select id="cuisines-select" name="cuisines" 
+          size="1" onchange="updateRestaurants()">
+          <label for="all-cu-opt">All Neighborhoods</label>
+          <option value="all" id="all-cu-opt">All Cuisines</option>
+        </select>
+      </div>
+      
+    </div>
+    <ul id="restaurants-list" aria-live="assertive"></ul>
+  </section>
+</main>
+
+<footer id="footer">
+  Copyright (c) 2018 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+</footer>
+
+<link defer async href="https://fonts.googleapis.com/css?family=Ubuntu:700|Ubuntu+Condensed" rel="stylesheet">
+
+</body>
+
+</html>
