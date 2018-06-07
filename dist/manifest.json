@@ -3,8 +3,8 @@
   "name": "Restaurant Reviews App",
   "icons": [
     {
-      "src": "/img/review.svg",
-      "type": "image/svg",
+      "src": "/assets/media/review.png",
+      "type": "image/png",
       "sizes": "512x512"
     }
   ],

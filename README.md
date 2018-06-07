@@ -9,9 +9,9 @@ A static webpage is converted to a mobile-ready web application. I took a static
 Restaurant data served from an api server. The client application works offline. JSON responses are cached using the IndexedDB API. Any data previously accessed while connected is reachable while offline.
 
 ### Site Performance
-Progressive Web App: >90
-Performance: >70
-Accessibility: >90
+Progressive Web App: 91
+Performance: 80
+Accessibility: 95
 
 ### Instructions
 
@@ -22,6 +22,10 @@ Accessibility: >90
 ###### Install Sails.js globally
 ```Install sails global
 # npm i sails -g
+```
+###### Build via webpack
+```Run build script
+# npm run build
 ```
 ###### Start the server
 ```Start server

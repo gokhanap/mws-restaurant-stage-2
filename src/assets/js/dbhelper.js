@@ -1,6 +1,4 @@
-const dbPromise = idb.open('restaurant-db', 1, (upgradeDb) => {
-    upgradeDb.createObjectStore('restaurants');
-  });
+import { get, set } from 'idb-keyval';
 
 /**
  * Common database helper functions.
@@ -19,17 +17,16 @@ class DBHelper {
   }
 
   /**
-   * Fetch all restaurants.
+   * Fetch all restaurants from API.
    */
-  static fetchRestaurants(callback) {
+  static fetchRestaurantsAPI(callback) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
         self.restaurants = json;
-        console.log(self.restaurants);
-        this.setIdbCache('idb', self.restaurants);
+        set('idbRestaurants', self.restaurants);
         callback(null, self.restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -37,35 +34,30 @@ class DBHelper {
       }
     };
     xhr.send();
-    xhr.onerror = () => {
-      console.log('error xhr');
-      this.getIdbCache('idb');
-      callback(null, res);
-    };
   }
 
-  static getIdbCache(key) {
-    return dbPromise.then(db => {
-      return db.transaction('restaurants')
-      .objectStore('restaurants').get(key);
+  /**
+   * Fetch all restaurants from IndexedDB.
+   */
+  static fetchRestaurants(callback) {
+    // get('idbRestaurants').then(res => console.log(res));
+    get('idbRestaurants').then(res => {
+      
+      if (typeof res !== "undefined") {
+        console.log("IBD fetch success", res);
+        callback(null, res);
+      } else {
+        callback('No Data at IndexedDB', null);
+      }
+    
     });
-  }
-
-  static setIdbCache(key, val) {
-    return dbPromise.then(db => {
-      const tx = db.transaction('restaurants', 'readwrite');
-      tx.objectStore('restaurants').put(val, key);
-      return tx.complete;
-    });
+    
   }
 
   /**
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-    //  TODO
-    //  this.getIdbCache('idb').then(function(res){console.log(res);})
-
     // fetch all restaurants with proper error handling.
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
@@ -181,7 +173,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`./img/${restaurant.photograph}`);
+    return (`./assets/media/${restaurant.photograph}`);
   }
 
   /**
@@ -199,3 +191,5 @@ class DBHelper {
   }
 
 }
+
+export default DBHelper;

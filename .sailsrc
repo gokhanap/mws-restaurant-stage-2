@@ -6,6 +6,6 @@
     "grunt": false
   },
   "paths": {
-    "public": "assets"
+    "public": "dist"
   }
 }
